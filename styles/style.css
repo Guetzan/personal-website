@@ -20,6 +20,7 @@
 
 *:not(dialog) {
     margin: 0;
+    padding: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -147,9 +148,31 @@ aside .header {
     padding-bottom: 20px;
 }
 
-
 .subtitle {
     font-size: 1rem;
+}
+
+nav {
+    padding: 1rem 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+nav li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+nav li svg {
+  flex-shrink: 0;
 }
 
 /*PROJECTS*/
