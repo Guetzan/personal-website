@@ -1,29 +1,14 @@
 :root {
-    --primary-bg: rgb(248, 249, 250);
-    --secondary-bg: #ffffff;
-    --border: rgb(228, 231, 235);
-    --neutral: rgb(241, 243, 245);
-
-    --header: #1E2024;
-    --text: #5E636E;
-    --tag: rgb(55, 65, 81);
-
+    --primary-bg:   #0E0E0C;
+    --secondary-bg: #171714;
+    --border:       #2A2A26;
+    --neutral:      #22221E;
+    --header:       #F2EFE6;
+    --text:         #A8A49A;
+    --tag:          #C9C5BA;
+    --accent:       #FFB000; 
     --font: "Nunito", sans-serif;
-
-    --shadow-color: 210deg 5% 78%;
-    --card-shadow:
-    rgba(0, 0, 0, 0.089) 0px 0px 0px 1px,
-    -0.4px 0.3px 0.5px hsl(var(--shadow-color) / 0.4),
-    -0.9px 0.7px 1.1px -1.3px hsl(var(--shadow-color) / 0.33),
-    -2.5px 1.9px 2.9px -2.5px hsl(var(--shadow-color) / 0.26),
-    -6.7px 5.1px 7.8px -3.8px hsl(var(--shadow-color) / 0.2);
-
-    --card-shadow-hvr: 
-    rgba(0, 0, 0, 0.089) 0px 0px 0px 1px,
-    -0.4px 0.3px 0.5px hsl(var(--shadow-color) / 0.58),
-    -1px 0.7px 1.1px -1.3px hsl(var(--shadow-color) / 0.48),
-    -2.9px 2.2px 3.4px -2.5px hsl(var(--shadow-color) / 0.38),
-    -7.9px 6px 9.2px -3.8px hsl(var(--shadow-color) / 0.28);
+    --radius: 8px;
 }
 
 /*CSS RESET*/
@@ -96,6 +81,19 @@ h6 {
 
 h1, h2, h3, h4 {
     color: var(--header);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+::selection {
+    background-color: var(--accent);
+    color: var(--primary-bg);
+}
+
+a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius);
 }
 
 p, span {
@@ -104,20 +102,22 @@ p, span {
 
 p {
     font-size: 0.925rem;
+    line-height: 1.6;
 }
 
-.aside {
+.sidebar {
     display: flex;
     flex-direction: column;
+    align-self: start;
 }
 
 .container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 40px 0;
+    padding: 64px 24px;
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 32px;
+    grid-template-columns: minmax(240px, 300px) 1fr;
+    gap: 48px;
 }
 
 body {
@@ -132,17 +132,25 @@ body {
 
     background-color: var(--secondary-bg);
     padding: 20px;
-    border-radius: 16px;
-    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: border-color 150ms ease;
+}
+
+.card h3 {
+    transition: color 150ms ease;
 }
 .card.soon {
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    border-style: dashed;
 }
 
 .card.soon::after {
     content: "Em breve";
     color: var(--text);
+    font-size: 0.875rem;
 }
 
 .tags {
@@ -157,8 +165,8 @@ body {
     font-weight: normal;
     background-color: var(--neutral);
     padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 0.875rem;
+    border-radius: 4px;
+    font-size: 0.8125rem;
 }
 
 /**/
@@ -187,10 +195,19 @@ nav li a {
     text-decoration: none;
     color: var(--text);
     font-size: 1rem;
+    transition: color 150ms ease;
+}
+
+nav li a:hover {
+    color: var(--accent);
 }
 
 nav li svg {
   flex-shrink: 0;
+}
+
+nav li svg path {
+  fill: currentColor;
 }
 
 /*PROJECTS*/
@@ -207,14 +224,23 @@ nav li svg {
 }
 
 .projects a:hover .project {
-    box-shadow: var(--card-shadow-hvr);
+    border-color: var(--accent);
+}
+
+.projects a:hover .project h3 {
+    color: var(--accent);
+}
+
+.project {
+    min-height: 167px;
 }
 
 @media screen and (max-width: 768px) {
   .container {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    gap: 32px;
+    padding: 40px 20px;
   }
 
   .projects {
@@ -248,3 +274,17 @@ nav li svg {
 body {
     padding: 10px;
 } */
+.subtitle span {
+    color: inherit;
+    white-space: nowrap;
+}
+
+.avatar {
+    width: 38px;
+    height: auto;
+    margin-top: 24px;
+    align-self: center;
+    filter: drop-shadow(0 0 16px rgb(255 176 0 / 0.27));
+    user-select: none;
+    -webkit-user-drag: none;
+}
