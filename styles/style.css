@@ -109,12 +109,63 @@ p {
     display: flex;
     flex-direction: column;
     align-self: start;
+    position: relative;
+    isolation: isolate;
+}
+
+/* Body-colored surface from the border down, so it covers the anvil's base */
+.sidebar::before {
+    content: "";
+    position: absolute;
+    inset: -20px 0 0;
+    z-index: -1;
+    background-color: var(--primary-bg);
+}
+
+/* Discreet lit border above the sidebar, brightest under the gnome */
+.sidebar::after {
+    content: "";
+    position: absolute;
+    top: -35px; /* bottom edge lands on the border line, 20px above the content */
+    left: 0;
+    right: 0;
+    height: 16px;
+    background:
+        /* the edge itself: fades in from nothing, brightest in the middle */
+        linear-gradient(90deg, transparent, rgb(255 176 0 / 0.6) 50%, transparent) bottom / 100% 1px no-repeat,
+        /* soft light spilling upward from the edge */
+        radial-gradient(ellipse 45% 100% at 50% 100%, rgb(255 176 0 / 0.18), transparent);
+    pointer-events: none;
+}
+
+.sidebar-art {
+    position: absolute;
+    bottom: calc(100% + 20px - 18px); 
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(400px, 100vw);
+    z-index: -2;
+    pointer-events: none;
+    user-select: none;
+}
+
+.sidebar-art img {
+    width: 100%;
+    height: auto;
+}
+
+.sidebar-art::before {
+    content: "";
+    position: absolute;
+    inset: -30% 15% 0;
+    z-index: -1;
+    background: radial-gradient(ellipse 50% 80% at 50% 100%, rgb(255 176 0 / 0.16), transparent 75%);
 }
 
 .container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 64px 24px;
+    padding: 192px 24px 64px; /* top leaves room for the gnome above both columns */
     display: grid;
     grid-template-columns: minmax(240px, 300px) 1fr;
     gap: 48px;
@@ -235,12 +286,26 @@ nav li svg path {
     min-height: 167px;
 }
 
+.calcifer-mark {
+    align-self: center;
+    width: 60px;
+    height: auto;
+    margin-top: 48px;
+    opacity: 0.06;
+    user-select: none;
+    pointer-events: none;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     display: flex;
     flex-direction: column;
     gap: 32px;
     padding: 40px 20px;
+  }
+
+  .sidebar {
+    margin-top: 150px;
   }
 
   .projects {
@@ -277,14 +342,4 @@ body {
 .subtitle span {
     color: inherit;
     white-space: nowrap;
-}
-
-.avatar {
-    width: 38px;
-    height: auto;
-    margin-top: 24px;
-    align-self: center;
-    filter: drop-shadow(0 0 16px rgb(255 176 0 / 0.27));
-    user-select: none;
-    -webkit-user-drag: none;
 }
